@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 设置工作目录
-cd /Users/yanzhang/Documents/ScriptEditor
+cd /Users/yanzhang/Coding/ScriptEditor
 
 # 如果有 rebase 在进行，就 abort 掉
 if [ -d .git/rebase-apply ] || [ -d .git/rebase-merge ]; then
