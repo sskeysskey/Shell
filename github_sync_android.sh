@@ -1,4 +1,3 @@
-#!/bin/bash
 
 # 设置工作目录
 cd /Users/yanzhang/Coding/AndroidStudioProjects
