@@ -1,4 +1,3 @@
-
 cd /Users/yanzhang/Coding/AndroidStudioProjects
 
 if [ -d .git/rebase-apply ] || [ -d .git/rebase-merge ]; then
