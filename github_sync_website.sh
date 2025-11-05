@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 设置工作目录
-cd /Users/yanzhang/Coding/Website
+cd /Users/yanzhang/Coding/website
 
 # 获取当前时间作为commit信息
 current_time=$(date "+%Y-%m-%d %H:%M:%S")
