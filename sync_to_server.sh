@@ -10,12 +10,18 @@ NC='\033[0m'
 
 echo -e "${GREEN}=== 1. 开始同步 LocalServer 目录到云服务器 ===${NC}"
 
-# rsync 命令 (请确保这里的路径和服务器地址正确)
-rsync -avz --delete --progress /Users/yanzhang/Coding/LocalServer/ root@106.15.183.158:/root/LocalServer/
+# --- 优化后的 rsync 命令 ---
+# -a: 归档模式
+# -v: 详细输出
+# -z: 压缩传输
+# -i: (新增) 详细列出每个文件的变化原因 (Itemize-changes)
+# --delete: 删除远程服务器上多余的文件
+# --progress: 显示传输进度
+rsync -avzi --delete --progress /Users/yanzhang/Coding/LocalServer/ root@106.15.183.158:/root/LocalServer/
 
 # 检查 rsync 命令是否成功执行
 if [ $? -ne 0 ]; then
-    echo -e "${RED}!!! 同步失败，请检查错误信息。脚本已终止。 !!!${NC}"
+    echo -e "${RED}!!! 同步失败，请检查网络或 SSH 配置。脚本已终止。 !!!${NC}"
     exit 1
 fi
 
