@@ -17,7 +17,7 @@ echo -e "${GREEN}=== 1. 开始同步 LocalServer 目录到云服务器 ===${NC}"
 # -i: (新增) 详细列出每个文件的变化原因 (Itemize-changes)
 # --delete: 删除远程服务器上多余的文件
 # --progress: 显示传输进度
-rsync -avzi --delete --progress /Users/yanzhang/Coding/LocalServer/ root@106.15.183.158:/root/LocalServer/
+rsync -avzi --delete --progress /Users/yanzhang/Coding/LocalServer/ my-cloud-server:/root/LocalServer/
 
 # 检查 rsync 命令是否成功执行
 if [ $? -ne 0 ]; then
@@ -33,7 +33,7 @@ RESTART_COMMAND="sudo systemctl restart appserver.service"
 
 # --- 执行远程命令 ---
 echo "正在远程执行: ssh root@106.15.183.158 \"${RESTART_COMMAND}\""
-ssh root@106.15.183.158 "${RESTART_COMMAND}"
+ssh my-cloud-server "${RESTART_COMMAND}"
 
 # 检查远程命令是否成功
 if [ $? -eq 0 ]; then
@@ -42,7 +42,7 @@ if [ $? -eq 0 ]; then
     sleep 5 # 等待几秒钟给服务启动时间
     echo -e "${YELLOW}正在获取最新的服务状态...${NC}"
     # 远程检查服务状态，确认是否成功启动
-    ssh root@106.15.183.158 "sudo systemctl status appserver.service"
+    ssh my-cloud-server "sudo systemctl status appserver.service"
 else
     echo -e "${RED}!!! 服务重启失败！请登录服务器手动检查。 !!!${NC}"
 fi
