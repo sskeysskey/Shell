@@ -37,14 +37,16 @@ ssh my-cloud-server "${RESTART_COMMAND}"
 
 # 检查远程命令是否成功
 if [ $? -eq 0 ]; then
-    echo -e "${GREEN}=== 服务重启命令已成功发送！ ==="
+    echo -e "${GREEN}=== 服务重启命令已成功发送！ ===${NC}"
     echo -e "${YELLOW}请稍等片刻让服务启动...${NC}"
     sleep 5 # 等待几秒钟给服务启动时间
     echo -e "${YELLOW}正在获取最新的服务状态...${NC}"
-    # 远程检查服务状态，确认是否成功启动
-    ssh my-cloud-server "sudo systemctl status appserver.service"
+    # 关键：--no-pager，防止远程分页器导致 ssh 不返回
+    ssh my-cloud-server "sudo systemctl status appserver.service --no-pager"
 else
     echo -e "${RED}!!! 服务重启失败！请登录服务器手动检查。 !!!${NC}"
+    exit 1
 fi
 
 echo -e "${GREEN}=== 全部任务完成 ===${NC}"
+exit 0
